@@ -1,0 +1,7 @@
+# Configuration constants
+GRID_COLS = 9
+GRID_ROWS = 5
+TILE_SIZE = 96
+WIDTH = GRID_COLS * TILE_SIZE
+HEIGHT = GRID_ROWS * TILE_SIZE + 150
+FPS = 60
