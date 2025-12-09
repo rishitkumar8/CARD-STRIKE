@@ -1,4 +1,3 @@
-# CARD-STRIKE
 # Refactoring Plan for Card Strike Game
 
 ## Steps to Complete Refactoring

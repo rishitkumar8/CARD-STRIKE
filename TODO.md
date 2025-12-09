@@ -1,2 +1,1 @@
-- [ ] Move HP text below HP bar in ui_draw.py
-- [ ] Move floating damage text above card in logic_attack.py
+- [ ] Step 5: card.py
