@@ -15,7 +15,7 @@ def draw_card_shape(surf, x, y, size, color, is_circle=False):
         pygame.draw.rect(surf, color, rect, border_radius=12)
 
 
-def draw_ui(screen, grid, selected_pos, hovered_cell):
+def draw_ui(screen, grid, selected_pos, hovered_cell, game_state="playing"):
     screen.fill(C_BG)
 
     # Draw Grid
@@ -47,11 +47,11 @@ def draw_ui(screen, grid, selected_pos, hovered_cell):
                 cx, cy = cell_center(c, r)
 
                 color = C_PLAYER if card.owner == "player" else C_ENEMY
-                draw_card_shape(screen, cx, cy, TILE_SIZE - 10, color, is_circle=(card.owner == "enemy"))
+                draw_card_shape(screen, cx, cy, TILE_SIZE - 10, color, is_circle=True)
 
                 label = f"P{card.index+1}" if card.owner == "player" else f"E{card.index+1}"
                 label_surface = FONT_BIG.render(label, True, C_WHITE)
-                screen.blit(label_surface, (cx - label_surface.get_width()//2, cy - TILE_SIZE//2 - 10))
+                screen.blit(label_surface, (cx - label_surface.get_width()//2, cy - label_surface.get_height()//2))
 
                 # ===============================
                 #         ADVANCED HP BAR
@@ -114,3 +114,24 @@ def draw_ui(screen, grid, selected_pos, hovered_cell):
 
     # VFX
     anim_mgr.draw(screen)
+
+    # Victory/Defeat Screens
+    if game_state == "victory":
+        # Confetti
+        import random
+        for _ in range(20):
+            x = random.randint(0, WIDTH)
+            y = random.randint(0, HEIGHT)
+            color = random.choice(C_CONFETTI)
+            pygame.draw.circle(screen, color, (x, y), 5)
+        # Congratulations message
+        msg = FONT_BIG.render("Congratulations! You Won!", True, C_VICTORY)
+        screen.blit(msg, (WIDTH//2 - msg.get_width()//2, HEIGHT//2 - msg.get_height()//2))
+    elif game_state == "defeat":
+        # Dark overlay
+        overlay = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 150))
+        screen.blit(overlay, (0, 0))
+        # Defeated message
+        msg = FONT_BIG.render("Defeated! Better luck next time.", True, C_DEFEAT)
+        screen.blit(msg, (WIDTH//2 - msg.get_width()//2, HEIGHT//2 - msg.get_height()//2))

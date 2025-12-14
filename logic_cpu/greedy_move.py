@@ -10,11 +10,20 @@ def greedy_nearest_move(e_pos, players, grid):
         return e_pos
 
     best_move = e_pos
-    best_dist = 9999
+    best_score = 9999
+
+    IDEAL_RANGE = 3  # optimal distance for your game (ranged-heavy)
+
     for (c, r) in possible_moves:
         for (px, py) in players:
             d = abs(px - c) + abs(py - r)
-            if d < best_dist:
-                best_dist = d
+
+            # Prefer tiles that place enemy at an ideal attack distance
+            score = abs(d - IDEAL_RANGE)
+
+            if score < best_score:
+                best_score = score
                 best_move = (c, r)
+
     return best_move
+

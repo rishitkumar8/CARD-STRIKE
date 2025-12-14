@@ -1,5 +1,5 @@
 # Configuration constants
-GRID_COLS = 15
+GRID_COLS = 20
 GRID_ROWS = 10
 TILE_SIZE = 75
 WIDTH = GRID_COLS * TILE_SIZE

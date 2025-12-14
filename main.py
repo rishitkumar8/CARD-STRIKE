@@ -28,9 +28,9 @@ cpu_pending = False
 def create_player_card(slot_index: int) -> Card:
     # FIRE/LEAF MIXED CARD — ALL PLAYERS USE SAME ABILITIES
     attacks = [
-        Attack("Burning Trail", dmg=12, element="fire"),
-        Attack("Nature's Embrace", dmg=12, element="leaf"),
-        Attack("Burning-Embrace Fusion", dmg=12, element="fire_leaf")
+        Attack("Burning Trail", dmg=12, element="fire", attack_range=5),
+        Attack("Nature's Embrace", dmg=12, element="leaf", attack_range=5),
+        Attack("Burning-Embrace Fusion", dmg=12, element="fire_leaf", attack_range=5)
     ]
 
     card = Card(
@@ -49,13 +49,23 @@ def create_player_card(slot_index: int) -> Card:
 def create_enemy_card(slot_index: int) -> Card:
     e = random.choice(['fire', 'water', 'leaf', 'null'])
     attacks = [
-        Attack("Bite", dmg=10, element=e),
-        Attack("Claw", dmg=14, element='null'),
+        Attack("Bite", dmg=10, element=e, attack_range=5),
+        Attack("Claw", dmg=14, element='null', attack_range=5),
     ]
     card = Card(owner="enemy", name=f"Beast {slot_index+1}", hp=100, max_hp=100, attacks=attacks, move_range=2, element=e, index=slot_index)
     card.display_hp = card.hp
     return card
 
+def check_win_lose(grid):
+    player_alive = any(tile.card and tile.card.owner == "player" for row in grid.tiles for tile in row)
+    enemy_alive = any(tile.card and tile.card.owner == "enemy" for row in grid.tiles for tile in row)
+    if not enemy_alive:
+        return "victory"
+    elif not player_alive:
+        return "defeat"
+    return "playing"
+
+game_state = "playing"
 running = True
 while running:
     # Logic Update
@@ -74,6 +84,7 @@ while running:
     if cpu_pending and not anim_mgr.blocking and not placing_phase:
         cpu_pending = False
         cpu_turn(grid)
+        game_state = check_win_lose(grid)
 
     mx, my = pygame.mouse.get_pos()
     hovered_cell = (mx // TILE_SIZE, my // TILE_SIZE)
@@ -142,7 +153,7 @@ while running:
                 else:
                     anim_mgr.add_floating_text("Hold 1/2/3!", mx, my, (255, 255, 0))
 
-    draw_ui(screen, grid, selected_pos, hovered_cell)
+    draw_ui(screen, grid, selected_pos, hovered_cell, game_state)
     pygame.display.flip()
     clock.tick(FPS)
 

@@ -42,6 +42,7 @@ def process_burn(grid):
         t -= 1
         eff[2] = t
         card.hp -= dmg
+        card.hp = max(1, card.hp)  # Burn cannot kill
         anim_mgr.add_floating_text(f"-{dmg}", *cell_center(*pos), E_FIRE)
         if card.hp < 0:
             grid.tiles[pos[0]][pos[1]].card = None

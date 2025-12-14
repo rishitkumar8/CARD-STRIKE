@@ -6,9 +6,25 @@ from colors import E_FIRE, E_LEAF
 from animations import anim_mgr
 
 
-def perform_attack_logic(ac, ar, tc, tr, atk, grid):
+def perform_attack_logic(ac, ar, tc, tr, atk, grid, dist=0):
+    # HARD SAFETY CHECK — NEVER ALLOW OUT-OF-RANGE ATTACKS
+    dist = abs(ac - tc) + abs(ar - tr)
+    if dist > atk.attack_range:
+        return
+
     attacker = grid.tiles[ac][ar].card
     target = grid.tiles[tc][tr].card
+
+    # Calculate distance-based damage reduction
+    if dist == 0:
+        dist = abs(ac - tc) + abs(ar - tr)
+    dmg_reduction = dist
+    base_dmg = atk.dmg - dmg_reduction
+
+    # Clamp damage so enemies never get one-shot
+    MAX_HIT_DAMAGE = int(target.max_hp * 0.25) if target else atk.dmg
+    base_dmg = max(1, min(base_dmg, MAX_HIT_DAMAGE))
+
 
     # =====================================================
     # 1. Burning Trail (FIRE)
@@ -22,7 +38,7 @@ def perform_attack_logic(ac, ar, tc, tr, atk, grid):
         anim_mgr.add_floating_text("🔥 TRAIL", *cell_center(ac, ar))
         # Also damage the target
         if target:
-            dmg = atk.dmg + random.randint(-2, 2)
+            dmg = base_dmg + random.randint(-2, 2)
             target.hp -= dmg
             target.flash_timer = 10
             cx, cy = cell_center(tc, tr)
@@ -46,15 +62,18 @@ def perform_attack_logic(ac, ar, tc, tr, atk, grid):
                     burn_effects.append([c, 10, FPS * 2, (x, y)])
                     anim_mgr.add_floating_text("-THORN", *cell_center(x, y), (0, 255, 0))
         # Also damage the target
+        # Apply only ONE direct hit; effects handle rest over time
         if target:
-            dmg = atk.dmg + random.randint(-2, 2)
+            dmg = max(1, int(base_dmg * 0.6))  # reduced upfront damage
             target.hp -= dmg
             target.flash_timer = 10
             cx, cy = cell_center(tc, tr)
             anim_mgr.add_floating_text(f"-{dmg}", cx, cy - 10)
+
             if target.hp <= 0:
                 grid.tiles[tc][tr].card = None
-        return
+
+                return
 
     # =====================================================
     # 3. Fusion Attack
@@ -75,7 +94,7 @@ def perform_attack_logic(ac, ar, tc, tr, atk, grid):
                     anim_mgr.add_floating_text("-FUSION FIRE", *cell_center(x, y), E_FIRE)
         # Also damage the target
         if target:
-            dmg = atk.dmg + random.randint(-2, 2)
+            dmg = base_dmg + random.randint(-2, 2)
             target.hp -= dmg
             target.flash_timer = 10
             cx, cy = cell_center(tc, tr)
@@ -88,7 +107,7 @@ def perform_attack_logic(ac, ar, tc, tr, atk, grid):
     # 4. Normal Attack
     # =====================================================
     if target:
-        dmg = atk.dmg + random.randint(-2, 2)
+        dmg = base_dmg + random.randint(-2, 2)
         target.hp -= dmg
         target.flash_timer = 10
         cx, cy = cell_center(tc, tr)
@@ -124,12 +143,18 @@ def initiate_player_attack(player_idx, attack_idx, enemy_idx, grid):
         attacker = grid.tiles[pc_pos[0]][pc_pos[1]].card
         atk = attacker.attacks[attack_idx]
 
+        # Check range
+        dist = abs(pc_pos[0] - ec_pos[0]) + abs(pc_pos[1] - ec_pos[1])
+        if dist > atk.attack_range:
+            anim_mgr.add_floating_text("Out of Range!", *cell_center(*pc_pos), (255, 0, 0))
+            return False
+
         start = cell_center(*pc_pos)
         end = cell_center(*ec_pos)
 
         anim_mgr.trigger_attack_anim(
             start, end, atk.element,
-            lambda: perform_attack_logic(pc_pos[0], pc_pos[1], ec_pos[0], ec_pos[1], atk, grid)
+            lambda: perform_attack_logic(pc_pos[0], pc_pos[1], ec_pos[0], ec_pos[1], atk, grid, dist)
         )
 
         return True  # Signals CPU turn ready

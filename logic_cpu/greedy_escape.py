@@ -18,7 +18,15 @@ def greedy_escape_move(e_pos, players, grid):
             if dist == 0:
                 dist = 1
             attacker = grid.tiles[px][py].card
-            threat += attacker.attacks[0].dmg / dist
+            for (px, py) in players:
+                attacker = grid.tiles[px][py].card
+                dist = abs(px - c) + abs(py - r)
+
+                if dist <= attacker.attacks[0].attack_range:
+                    threat += attacker.attacks[0].dmg * 2
+                else:
+                    threat += attacker.attacks[0].dmg / max(dist, 1)
+
         if threat < best_threat:
             best_threat = threat
             best_tile = (c, r)
