@@ -81,10 +81,30 @@ def create_player_card(slot_index: int, element: str) -> Card:
 
 def create_enemy_card(slot_index: int) -> Card:
     e = random.choice(["fire", "water", "leaf", "null"])
-    attacks = [
-        Attack("Bite", 10, e, 5),
-        Attack("Claw", 14, "null", 5),
-    ]
+    if e == "fire":
+        attacks = [
+            Attack("Burning Trail", 12, "fire", 5),
+            Attack("Fire Claw", 14, "fire", 4),
+            Attack("Inferno Burst", 16, "fire", 5),
+        ]
+    elif e == "water":
+        attacks = [
+            Attack("Water Lash", 10, "water", 5),
+            Attack("Tidal Push", 12, "water", 4),
+            Attack("Healing Wave", 8, "water", 4),
+        ]
+    elif e == "leaf":
+        attacks = [
+            Attack("Nature's Embrace", 10, "leaf", 4),
+            Attack("Vine Whip", 12, "leaf", 5),
+            Attack("Thorn Burst", 14, "leaf", 4),
+        ]
+    else:  # null
+        attacks = [
+            Attack("Strike", 12, "null", 4),
+            Attack("Guard Break", 14, "null", 4),
+            Attack("Focused Blow", 16, "null", 3),
+        ]
     card = Card(
         owner="enemy",
         name=f"Beast {slot_index+1}",

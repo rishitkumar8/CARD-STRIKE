@@ -11,7 +11,7 @@ burn_effects = []     # [card, dmg_per_tick, time_left, (c,r)]
 
 def process_flame_tiles(grid):
     for ft in flame_tiles[:]:
-        c, r, t = ft
+        c, r, t, owner = ft
         t -= 1
         ft[2] = t
 
@@ -20,10 +20,11 @@ def process_flame_tiles(grid):
             continue
 
         card = grid.tiles[c][r].card
-        if card:
-            card.hp -= 5  # light DOT
-            card.hp = max(1, card.hp)  # cannot kill
+        if card and card.owner != owner:
+            card.hp -= 5
+            card.hp = max(1, card.hp)
             anim_mgr.add_floating_text("-5🔥", *cell_center(c, r), E_FIRE)
+
             if card.hp < 0:
                 grid.tiles[c][r].card = None
 
@@ -33,7 +34,7 @@ def process_regen():
         t -= 1
         eff[2] = t
         card.hp = min(card.max_hp, card.hp + heal)
-        anim_mgr.add_floating_text(f"+{heal}", *cell_center(*pos), E_LEAF)
+        anim_mgr.add_floating_text("HEAL", *cell_center(*pos), (0, 255, 0))
         if t <= 0:
             regen_effects.remove(eff)
 

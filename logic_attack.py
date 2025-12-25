@@ -5,12 +5,23 @@ from effects import flame_tiles, regen_effects, burn_effects
 from colors import E_FIRE, E_LEAF
 from animations import anim_mgr
 
+RARITY_MULT = {
+    "normal": 1.0,
+    "rare": 1.1,
+    "epic": 1.25,
+    "legendary": 1.5
+}
+
 
 def perform_attack_logic(ac, ar, tc, tr, atk, grid, dist=0):
     # HARD SAFETY CHECK — NEVER ALLOW OUT-OF-RANGE ATTACKS
+    from grid import bfs_reachable
+
     dist = abs(ac - tc) + abs(ar - tr)
     if dist > atk.attack_range:
         return
+
+
 
     attacker = grid.tiles[ac][ar].card
     target = grid.tiles[tc][tr].card
@@ -39,7 +50,7 @@ def perform_attack_logic(ac, ar, tc, tr, atk, grid, dist=0):
             if grid.in_bounds(nc, ar):
                 # Avoid stacking same tile infinitely
                 if not any(ft[0] == nc and ft[1] == ar for ft in flame_tiles):
-                    flame_tiles.append([nc, ar, FPS * 3])  # 3 seconds
+                    flame_tiles.append([nc, ar, FPS * 3, attacker.owner])  # 3 seconds
 
         anim_mgr.add_floating_text("🔥 FIRE TRAIL", *cell_center(ac, ar), E_FIRE)
 
@@ -68,6 +79,7 @@ def perform_attack_logic(ac, ar, tc, tr, atk, grid, dist=0):
                 c = grid.tiles[x][y].card
                 if c.owner == attacker.owner:
                     regen_effects.append([c, 5, FPS * 3, (x, y)])
+                    c.heal_flash_timer = 12   # ⭐ ADD
                     anim_mgr.add_floating_text("+HEAL", *cell_center(x, y), E_LEAF)
                 else:
                     burn_effects.append([c, 10, FPS * 2, (x, y)])
@@ -115,17 +127,43 @@ def perform_attack_logic(ac, ar, tc, tr, atk, grid, dist=0):
         return
 
     # =====================================================
-    # 4. Normal Attack
+    # 4. Normal Attack (WITH SHIELD)
     # =====================================================
     if target:
-        dmg = base_dmg + random.randint(-2, 2)
-        target.hp -= dmg
-        target.flash_timer = 10
-        cx, cy = cell_center(tc, tr)
-        anim_mgr.add_floating_text(f"-{dmg}", cx, cy - 10)
+        base = atk.dmg + random.randint(-2, 2)
+        mult = RARITY_MULT.get(attacker.rarity, 1.0)
+        dmg = int(base * mult)
 
-        if target.hp < 0:
+        # 🛡️ SHIELD ABSORPTION
+        if target.shield > 0:
+            absorbed = min(target.shield, dmg)
+            target.shield -= absorbed
+            dmg -= absorbed
+            anim_mgr.add_floating_text(f"-{absorbed}🛡", *cell_center(tc, tr))
+
+        # ❤️ APPLY REMAINING DAMAGE
+        if dmg > 0:
+            target.hp -= dmg
+            # ------------------------------
+            # CPU retaliation memory
+            # ------------------------------
+            if target.owner == "enemy":
+                from logic_cpu.cpu_controller import (
+                    last_attacked_enemy,
+                    last_attacked_turn,
+                    current_turn
+                )
+                last_attacked_enemy = (tc, tr)
+                last_attacked_turn = current_turn
+
+            anim_mgr.add_floating_text(f"-{dmg}", *cell_center(tc, tr))
+
+        # ⚡ HIT FLASH
+        target.flash_timer = 8
+
+        if target.hp <= 0:
             grid.tiles[tc][tr].card = None
+
 
 
 def initiate_player_attack(player_idx, attack_idx, enemy_idx, grid):
@@ -154,20 +192,33 @@ def initiate_player_attack(player_idx, attack_idx, enemy_idx, grid):
         attacker = grid.tiles[pc_pos[0]][pc_pos[1]].card
         atk = attacker.attacks[attack_idx]
 
-        # Check range
-        dist = abs(pc_pos[0] - ec_pos[0]) + abs(pc_pos[1] - ec_pos[1])
-        if dist > atk.attack_range:
-            anim_mgr.add_floating_text("Out of Range!", *cell_center(*pc_pos), (255, 0, 0))
+        # ---------------------------------
+        # ATTACK RANGE CHECK (OUT OF RANGE)
+        # ---------------------------------
+        from grid import bfs_reachable
+
+        reachable = bfs_reachable(pc_pos, atk.attack_range, grid)
+
+        if ec_pos not in reachable:
+            anim_mgr.add_floating_text(
+                "OUT OF RANGE!",
+                *cell_center(*pc_pos),
+                (255, 180, 0)
+            )
             return False
+
 
         start = cell_center(*pc_pos)
         end = cell_center(*ec_pos)
 
         anim_mgr.trigger_attack_anim(
             start, end, atk.element,
-            lambda: perform_attack_logic(pc_pos[0], pc_pos[1], ec_pos[0], ec_pos[1], atk, grid, dist)
+            lambda: perform_attack_logic(
+                pc_pos[0], pc_pos[1],
+                ec_pos[0], ec_pos[1],
+                atk, grid
+            )
         )
-
         return True  # Signals CPU turn ready
 
     return False

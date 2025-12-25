@@ -1,3 +1,5 @@
+from grid import bfs_reachable
+
 # greedy_move.py
 def greedy_nearest_move(e_pos, players, grid, move_range):
     possible_moves = []
@@ -11,9 +13,12 @@ def greedy_nearest_move(e_pos, players, grid, move_range):
             min(grid.rows, e_pos[1] + move_range + 1)
         ):
             # Manhattan distance constraint
-            if abs(c - e_pos[0]) + abs(r - e_pos[1]) <= move_range:
+            reachable = bfs_reachable(e_pos, move_range, grid)
+            
+            for (c, r) in reachable:
                 if grid.tiles[c][r].card is None:
                     possible_moves.append((c, r))
+
 
 
     if not possible_moves:
