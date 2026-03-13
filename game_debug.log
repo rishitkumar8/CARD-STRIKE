@@ -1,0 +1,3 @@
+INFO:root:Starting cleanup...
+INFO:root:Removed __pycache__ directory.
+INFO:root:Removed nested __pycache__ in .\logic_cpu

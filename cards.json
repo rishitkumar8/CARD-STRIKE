@@ -1,0 +1,1686 @@
+{
+  "cards": [
+    {
+      "id": "e74bee37",
+      "name": "Ember Vine",
+      "element": "fire",
+      "secondary": "leaf",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "1.jpg",
+      "attacks": [
+        {
+          "name": "Ember Lash",
+          "element": "fire",
+          "damage": 14,
+          "range": 2,
+          "cooldown": 0,
+          "animation": "projectile_fire",
+          "description": "Fire lash that burns enemies (Burn 5dmg/2t)",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "burn",
+          "status_duration": 2,
+          "status_value": 5
+        },
+        {
+          "name": "Vine Burn",
+          "element": "leaf",
+          "damage": 12,
+          "range": 3,
+          "cooldown": 2,
+          "animation": "vine_strike",
+          "description": "Vine with burning effect (Burn 5dmg/2t)",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "burn",
+          "status_duration": 2,
+          "status_value": 5
+        },
+        {
+          "name": "Fusion Blast",
+          "element": "combined",
+          "damage": 18,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "aoe_fire",
+          "description": "Hybrid fire-vine attack",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "10ad412a",
+      "name": "Scorched Root",
+      "element": "fire",
+      "secondary": "leaf",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "2.jpg",
+      "attacks": [
+        {
+          "name": "Root Burn",
+          "element": "fire",
+          "damage": 14,
+          "range": 2,
+          "cooldown": 0,
+          "animation": "projectile_fire",
+          "description": "Burning root attack",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "burn",
+          "status_duration": 2,
+          "status_value": 5
+        },
+        {
+          "name": "Magma Strike",
+          "element": "fire",
+          "damage": 18,
+          "range": 1,
+          "cooldown": 2,
+          "animation": "aoe_fire",
+          "description": "Close-range magma attack (Burn 5dmg/2t)",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "burn",
+          "status_duration": 2,
+          "status_value": 5
+        },
+        {
+          "name": "Nature's Recovery",
+          "element": "leaf",
+          "damage": 0,
+          "range": 0,
+          "cooldown": 3,
+          "animation": "heal_aura",
+          "description": "Self-heal with nature energy (Heal 20)",
+          "is_healing": true,
+          "heal_amount": 20,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "cae85dff",
+      "name": "Flame Embrace",
+      "element": "fire",
+      "secondary": "leaf",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "3.jpg",
+      "attacks": [
+        {
+          "name": "Flame Dash",
+          "element": "fire",
+          "damage": 16,
+          "range": 2,
+          "cooldown": 0,
+          "animation": "dash_fire",
+          "description": "Fire dash dealing heavy damage (Burn 5dmg/2t)",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "burn",
+          "status_duration": 2,
+          "status_value": 5
+        },
+        {
+          "name": "Nature Heal",
+          "element": "leaf",
+          "damage": 0,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "heal_aura",
+          "description": "Healing aura for allies (Heal 20)",
+          "is_healing": true,
+          "heal_amount": 20,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Fusion Surge",
+          "element": "combined",
+          "damage": 16,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "aoe_fire",
+          "description": "Dash + healing field hybrid",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "baffdac6",
+      "name": "Boiling Storm",
+      "element": "fire",
+      "secondary": "water",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "4.jpg",
+      "attacks": [
+        {
+          "name": "Burn Trail",
+          "element": "fire",
+          "damage": 12,
+          "range": 3,
+          "cooldown": 0,
+          "animation": "trail_fire",
+          "description": "Leaves flaming tiles (Burn 5dmg/2t)",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "burn",
+          "status_duration": 2,
+          "status_value": 5
+        },
+        {
+          "name": "Boil Burst",
+          "element": "water",
+          "damage": 15,
+          "range": 2,
+          "cooldown": 2,
+          "animation": "steam_burst",
+          "description": "Steam explosion",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Fusion Steam",
+          "element": "combined",
+          "damage": 17,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "steam_trail",
+          "description": "Flame trail + steam burst",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "8c5de00f",
+      "name": "Steam Surge",
+      "element": "fire",
+      "secondary": "water",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "5.jpg",
+      "attacks": [
+        {
+          "name": "Steam Blast",
+          "element": "water",
+          "damage": 13,
+          "range": 2,
+          "cooldown": 0,
+          "animation": "steam_burst",
+          "description": "Steam explosion",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Surge Strike",
+          "element": "water",
+          "damage": 16,
+          "range": 2,
+          "cooldown": 2,
+          "animation": "burst_water",
+          "description": "Surging water strike",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Fusion Wave",
+          "element": "combined",
+          "damage": 18,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "steam_burst",
+          "description": "Steam and surge hybrid",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "ad387be8",
+      "name": "Flare Counter",
+      "element": "fire",
+      "secondary": "wind",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "6.jpeg",
+      "attacks": [
+        {
+          "name": "Flare Hit",
+          "element": "fire",
+          "damage": 13,
+          "range": 2,
+          "cooldown": 0,
+          "animation": "counter_fire",
+          "description": "Counter with fire reflect",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Gust Cut",
+          "element": "wind",
+          "damage": 14,
+          "range": 3,
+          "cooldown": 2,
+          "animation": "slash_wind",
+          "description": "Wind pressure slash",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Fusion Cut",
+          "element": "combined",
+          "damage": 17,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "slash_fire",
+          "description": "Fire-wind counter",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "514ebce8",
+      "name": "Burning Push",
+      "element": "water",
+      "secondary": "fire",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "7.jpeg",
+      "attacks": [
+        {
+          "name": "Burn Trail",
+          "element": "fire",
+          "damage": 12,
+          "range": 3,
+          "cooldown": 0,
+          "animation": "trail_fire",
+          "description": "Leaves flame tiles (Burn 5dmg/2t)",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "burn",
+          "status_duration": 2,
+          "status_value": 5
+        },
+        {
+          "name": "Aqua Push",
+          "element": "water",
+          "damage": 15,
+          "range": 1,
+          "cooldown": 2,
+          "animation": "push_water",
+          "description": "Push wave attack",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Fusion Push",
+          "element": "combined",
+          "damage": 17,
+          "range": 1,
+          "cooldown": 3,
+          "animation": "steam_push",
+          "description": "Push into flames",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "396c06d9",
+      "name": "Aqua Trail",
+      "element": "water",
+      "secondary": "fire",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "8.jpeg",
+      "attacks": [
+        {
+          "name": "Steam Trail",
+          "element": "water",
+          "damage": 12,
+          "range": 3,
+          "cooldown": 0,
+          "animation": "steam_trail",
+          "description": "Steam trail attack",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Heavy Splash",
+          "element": "water",
+          "damage": 16,
+          "range": 2,
+          "cooldown": 3,
+          "animation": "burst_water",
+          "description": "Heavy water splash (Stun 1t)",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "stun",
+          "status_duration": 1,
+          "status_value": 0
+        },
+        {
+          "name": "Fusion Splash",
+          "element": "combined",
+          "damage": 18,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "steam_trail",
+          "description": "Steam and splash",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "2f041963",
+      "name": "Overgrowth",
+      "element": "water",
+      "secondary": "leaf",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "9.jpeg",
+      "attacks": [
+        {
+          "name": "Boil Response",
+          "element": "water",
+          "damage": 14,
+          "range": 2,
+          "cooldown": 0,
+          "animation": "steam_burst",
+          "description": "Steam burn reaction",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Growth Heal",
+          "element": "leaf",
+          "damage": 0,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "aura_grow",
+          "description": "Expanding healing aura (Heal 20)",
+          "is_healing": true,
+          "heal_amount": 20,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Fusion Aura",
+          "element": "combined",
+          "damage": 16,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "steam_aura",
+          "description": "Steam + growth zone",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "fc1c56d2",
+      "name": "Water Splash",
+      "element": "water",
+      "secondary": "wind",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "10.jpeg",
+      "attacks": [
+        {
+          "name": "Splash Hit",
+          "element": "water",
+          "damage": 14,
+          "range": 2,
+          "cooldown": 0,
+          "animation": "splash_360",
+          "description": "AoE water splash",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Whirl Zone",
+          "element": "wind",
+          "damage": 13,
+          "range": 1,
+          "cooldown": 2,
+          "animation": "whirlwind",
+          "description": "Whirlwind push",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Fusion Whirl",
+          "element": "combined",
+          "damage": 17,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "splash_whirl",
+          "description": "Splash + whirl AoE",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "1cf44e8f",
+      "name": "Nature Wave",
+      "element": "leaf",
+      "secondary": "water",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "11.jpeg",
+      "attacks": [
+        {
+          "name": "Root Anchor",
+          "element": "leaf",
+          "damage": 13,
+          "range": 2,
+          "cooldown": 2,
+          "animation": "vine_root",
+          "description": "Root anchor attack",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "root",
+          "status_duration": 1,
+          "status_value": 0
+        },
+        {
+          "name": "Tower Slam",
+          "element": "leaf",
+          "damage": 17,
+          "range": 2,
+          "cooldown": 3,
+          "animation": "vine_slam",
+          "description": "Powerful tower slam (Stun 1t)",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "stun",
+          "status_duration": 1,
+          "status_value": 0
+        },
+        {
+          "name": "Regeneration",
+          "element": "leaf",
+          "damage": 0,
+          "range": 0,
+          "cooldown": 3,
+          "animation": "heal_aura",
+          "description": "Self-heal with nature power",
+          "is_healing": true,
+          "heal_amount": 25,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "b3e36830",
+      "name": "Nature Zone",
+      "element": "leaf",
+      "secondary": "wind",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "12.jpeg",
+      "attacks": [
+        {
+          "name": "Nature Heal",
+          "element": "leaf",
+          "damage": 0,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "heal_aura",
+          "description": "Heals allies in range (Heal 20)",
+          "is_healing": true,
+          "heal_amount": 20,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Whirl Zone",
+          "element": "wind",
+          "damage": 14,
+          "range": 1,
+          "cooldown": 2,
+          "animation": "whirlwind",
+          "description": "Whirlwind push zone",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Fusion Zone",
+          "element": "combined",
+          "damage": 16,
+          "range": 1,
+          "cooldown": 3,
+          "animation": "heal_whirl",
+          "description": "Heal + push zone",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "1a6e45d6",
+      "name": "Vine Strike",
+      "element": "leaf",
+      "secondary": "wind",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "13.jpg",
+      "attacks": [
+        {
+          "name": "Sharp Vine",
+          "element": "leaf",
+          "damage": 13,
+          "range": 2,
+          "cooldown": 2,
+          "animation": "vine_strike",
+          "description": "Sharp vine attack (Root 1t)",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "root",
+          "status_duration": 1,
+          "status_value": 0
+        },
+        {
+          "name": "Life Drain",
+          "element": "leaf",
+          "damage": 10,
+          "range": 2,
+          "cooldown": 3,
+          "animation": "vine_slam",
+          "description": "Drain life and heal self (Drain 10 DMG + 15 HP)",
+          "is_healing": false,
+          "heal_amount": 15,
+          "is_life_drain": true,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Fusion Vine",
+          "element": "combined",
+          "damage": 18,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "vine_whirl",
+          "description": "Vine + wind hybrid (Root 1t)",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "root",
+          "status_duration": 1,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "c807020e",
+      "name": "Backstab Dash",
+      "element": "wind",
+      "secondary": "fire",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "14.jpeg",
+      "attacks": [
+        {
+          "name": "Backstab",
+          "element": "wind",
+          "damage": 16,
+          "range": 2,
+          "cooldown": 0,
+          "animation": "backstab",
+          "description": "Backstab from behind",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Flame Dash",
+          "element": "fire",
+          "damage": 14,
+          "range": 3,
+          "cooldown": 2,
+          "animation": "dash_fire",
+          "description": "Fire dash attack (Burn 5dmg/2t)",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "burn",
+          "status_duration": 2,
+          "status_value": 5
+        },
+        {
+          "name": "Fusion Dash",
+          "element": "combined",
+          "damage": 18,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "dash_backstab",
+          "description": "Dash + backstab",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "4d278c7b",
+      "name": "Whirl Trail",
+      "element": "wind",
+      "secondary": "fire",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "15.jpeg",
+      "attacks": [
+        {
+          "name": "Whirl Zone",
+          "element": "wind",
+          "damage": 12,
+          "range": 1,
+          "cooldown": 0,
+          "animation": "whirlwind",
+          "description": "Whirlwind push zone",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Burn Trail",
+          "element": "fire",
+          "damage": 13,
+          "range": 3,
+          "cooldown": 2,
+          "animation": "trail_fire",
+          "description": "Leaves fire tiles (Burn 5dmg/2t)",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "burn",
+          "status_duration": 2,
+          "status_value": 5
+        },
+        {
+          "name": "Fusion Trail",
+          "element": "combined",
+          "damage": 17,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "whirl_fire",
+          "description": "Whirl + fire trail",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "bbdd39b4",
+      "name": "Whirl Splash",
+      "element": "wind",
+      "secondary": "water",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "16.jpeg",
+      "attacks": [
+        {
+          "name": "Whirl Zone",
+          "element": "wind",
+          "damage": 12,
+          "range": 1,
+          "cooldown": 0,
+          "animation": "whirlwind",
+          "description": "Whirlwind push",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Splash Hit",
+          "element": "water",
+          "damage": 15,
+          "range": 2,
+          "cooldown": 2,
+          "animation": "splash_360",
+          "description": "Water splash AoE",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Fusion Splash",
+          "element": "combined",
+          "damage": 17,
+          "range": 1,
+          "cooldown": 3,
+          "animation": "splash_whirl",
+          "description": "Push + splash AoE",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "8a073cc9",
+      "name": "Backstab Gust",
+      "element": "wind",
+      "secondary": "leaf",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "17.jpeg",
+      "attacks": [
+        {
+          "name": "Backstab",
+          "element": "wind",
+          "damage": 16,
+          "range": 2,
+          "cooldown": 0,
+          "animation": "backstab",
+          "description": "Backstab stun attack",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Vine Recovery",
+          "element": "leaf",
+          "damage": 0,
+          "range": 0,
+          "cooldown": 3,
+          "animation": "vine_strike",
+          "description": "Vine self-heal (Heal 20) (Root 1t)",
+          "is_healing": true,
+          "heal_amount": 20,
+          "is_life_drain": false,
+          "status_type": "root",
+          "status_duration": 1,
+          "status_value": 0
+        },
+        {
+          "name": "Fusion Gust",
+          "element": "combined",
+          "damage": 18,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "backstab_vine",
+          "description": "Backstab + vine",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "Null-Aura",
+      "name": "Aura Booster",
+      "element": "null",
+      "secondary": "null",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "18.jpg",
+      "attacks": [
+        {
+          "name": "Glitch Aura",
+          "element": "null",
+          "damage": 12,
+          "range": 3,
+          "cooldown": 0,
+          "animation": "glitch_pulse",
+          "description": "Aura buff + debuff",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Boost Pulse",
+          "element": "null",
+          "damage": 15,
+          "range": 2,
+          "cooldown": 2,
+          "animation": "beam_null",
+          "description": "Pulsing boost attack",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Fusion Aura",
+          "element": "null",
+          "damage": 17,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "glitch_aura",
+          "description": "Combined aura effect",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "Null-Logic",
+      "name": "Logic Trap",
+      "element": "null",
+      "secondary": "null",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "19.jpeg",
+      "attacks": [
+        {
+          "name": "Digi Shock",
+          "element": "null",
+          "damage": 13,
+          "range": 2,
+          "cooldown": 0,
+          "animation": "beam_null",
+          "description": "Digital shock attack",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Logic Break",
+          "element": "null",
+          "damage": 16,
+          "range": 2,
+          "cooldown": 2,
+          "animation": "trap_null",
+          "description": "Trap node damage",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Fusion Trap",
+          "element": "null",
+          "damage": 18,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "trap_shock",
+          "description": "Trap + shock combo (Root 1t)",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "root",
+          "status_duration": 1,
+          "status_value": 0
+        }
+      ]
+    },
+    {
+      "id": "Null-Rewrite",
+      "name": "Rewrite Field",
+      "element": "null",
+      "secondary": "null",
+      "hp": 50,
+      "speed": 8,
+      "move": 3,
+      "asset": "20.jpeg",
+      "attacks": [
+        {
+          "name": "Scramble",
+          "element": "null",
+          "damage": 14,
+          "range": 2,
+          "cooldown": 0,
+          "animation": "glitch_wave",
+          "description": "Scramble wave attack",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Code Erupt",
+          "element": "null",
+          "damage": 17,
+          "range": 2,
+          "cooldown": 2,
+          "animation": "beam_null",
+          "description": "Code eruption blast",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        },
+        {
+          "name": "Fusion Field",
+          "element": "null",
+          "damage": 18,
+          "range": 3,
+          "cooldown": 3,
+          "animation": "glitch_field",
+          "description": "Rewrite field effect",
+          "is_healing": false,
+          "heal_amount": 0,
+          "is_life_drain": false,
+          "status_type": "none",
+          "status_duration": 0,
+          "status_value": 0
+        }
+      ]
+    }
+  ],
+  "animation_types": {
+    "projectile_fire": {
+      "type": "projectile",
+      "color": [
+        255,
+        100,
+        30
+      ],
+      "trail_color": [
+        255,
+        180,
+        50
+      ],
+      "speed": 0.08,
+      "size": 12,
+      "trail_particles": 3
+    },
+    "projectile_water": {
+      "type": "projectile",
+      "color": [
+        50,
+        150,
+        255
+      ],
+      "trail_color": [
+        100,
+        200,
+        255
+      ],
+      "speed": 0.06,
+      "size": 10,
+      "trail_particles": 2
+    },
+    "slash_wind": {
+      "type": "slash",
+      "color": [
+        200,
+        220,
+        255
+      ],
+      "arc_color": [
+        255,
+        255,
+        255
+      ],
+      "speed": 0.12,
+      "arc_angle": 120
+    },
+    "slash_fire": {
+      "type": "slash",
+      "color": [
+        255,
+        100,
+        30
+      ],
+      "arc_color": [
+        255,
+        200,
+        50
+      ],
+      "speed": 0.1,
+      "arc_angle": 90
+    },
+    "beam_null": {
+      "type": "beam",
+      "color": [
+        180,
+        100,
+        220
+      ],
+      "glitch_color": [
+        100,
+        255,
+        200
+      ],
+      "speed": 0.05,
+      "width": 8,
+      "glitch": true
+    },
+    "aoe_fire": {
+      "type": "aoe",
+      "color": [
+        255,
+        80,
+        30
+      ],
+      "ring_color": [
+        255,
+        200,
+        50
+      ],
+      "radius": 60,
+      "expand_speed": 0.08
+    },
+    "vine_strike": {
+      "type": "vine",
+      "color": [
+        80,
+        200,
+        80
+      ],
+      "accent_color": [
+        50,
+        150,
+        50
+      ],
+      "segments": 5,
+      "wave_speed": 0.1
+    },
+    "vine_slam": {
+      "type": "vine",
+      "color": [
+        60,
+        180,
+        60
+      ],
+      "accent_color": [
+        40,
+        140,
+        40
+      ],
+      "segments": 3,
+      "wave_speed": 0.15
+    },
+    "vine_root": {
+      "type": "vine",
+      "color": [
+        100,
+        80,
+        50
+      ],
+      "accent_color": [
+        60,
+        200,
+        60
+      ],
+      "segments": 4,
+      "wave_speed": 0.08
+    },
+    "heal_aura": {
+      "type": "heal",
+      "color": [
+        100,
+        255,
+        100
+      ],
+      "particle_color": [
+        200,
+        255,
+        200
+      ],
+      "radius": 50,
+      "particle_count": 20
+    },
+    "burst_water": {
+      "type": "burst",
+      "color": [
+        50,
+        150,
+        255
+      ],
+      "splash_color": [
+        150,
+        220,
+        255
+      ],
+      "radius": 45,
+      "droplet_count": 15
+    },
+    "trail_fire": {
+      "type": "trail",
+      "color": [
+        255,
+        100,
+        30
+      ],
+      "flame_color": [
+        255,
+        200,
+        50
+      ],
+      "tile_duration": 120,
+      "flame_height": 20
+    },
+    "steam_burst": {
+      "type": "steam",
+      "color": [
+        200,
+        200,
+        220
+      ],
+      "steam_color": [
+        255,
+        255,
+        255
+      ],
+      "radius": 40,
+      "particle_count": 25
+    },
+    "steam_trail": {
+      "type": "steam",
+      "color": [
+        180,
+        180,
+        200
+      ],
+      "steam_color": [
+        220,
+        220,
+        230
+      ],
+      "radius": 30,
+      "particle_count": 15
+    },
+    "steam_push": {
+      "type": "steam",
+      "color": [
+        200,
+        200,
+        220
+      ],
+      "steam_color": [
+        255,
+        255,
+        255
+      ],
+      "radius": 50,
+      "particle_count": 30
+    },
+    "steam_aura": {
+      "type": "steam",
+      "color": [
+        180,
+        200,
+        180
+      ],
+      "steam_color": [
+        200,
+        255,
+        200
+      ],
+      "radius": 45,
+      "particle_count": 20
+    },
+    "push_water": {
+      "type": "wave",
+      "color": [
+        50,
+        150,
+        255
+      ],
+      "wave_color": [
+        150,
+        220,
+        255
+      ],
+      "width": 60,
+      "speed": 0.1
+    },
+    "splash_360": {
+      "type": "splash",
+      "color": [
+        50,
+        150,
+        255
+      ],
+      "droplet_color": [
+        150,
+        220,
+        255
+      ],
+      "radius": 50,
+      "droplet_count": 12
+    },
+    "splash_whirl": {
+      "type": "splash",
+      "color": [
+        100,
+        180,
+        255
+      ],
+      "droplet_color": [
+        200,
+        230,
+        255
+      ],
+      "radius": 55,
+      "droplet_count": 16
+    },
+    "whirlwind": {
+      "type": "whirl",
+      "color": [
+        200,
+        220,
+        255
+      ],
+      "spiral_color": [
+        255,
+        255,
+        255
+      ],
+      "radius": 50,
+      "rotation_speed": 0.15
+    },
+    "whirl_fire": {
+      "type": "whirl",
+      "color": [
+        255,
+        180,
+        100
+      ],
+      "spiral_color": [
+        255,
+        100,
+        30
+      ],
+      "radius": 55,
+      "rotation_speed": 0.12
+    },
+    "heal_whirl": {
+      "type": "heal_whirl",
+      "color": [
+        100,
+        255,
+        100
+      ],
+      "spiral_color": [
+        200,
+        255,
+        200
+      ],
+      "radius": 50,
+      "rotation_speed": 0.1
+    },
+    "vine_whirl": {
+      "type": "vine_whirl",
+      "color": [
+        80,
+        200,
+        80
+      ],
+      "spiral_color": [
+        200,
+        255,
+        200
+      ],
+      "radius": 45,
+      "rotation_speed": 0.1
+    },
+    "wave_leaf": {
+      "type": "wave",
+      "color": [
+        80,
+        200,
+        80
+      ],
+      "wave_color": [
+        100,
+        255,
+        150
+      ],
+      "width": 50,
+      "speed": 0.08
+    },
+    "backstab": {
+      "type": "strike",
+      "color": [
+        200,
+        200,
+        220
+      ],
+      "flash_color": [
+        255,
+        255,
+        255
+      ],
+      "speed": 0.15,
+      "strike_size": 15
+    },
+    "backstab_vine": {
+      "type": "strike",
+      "color": [
+        100,
+        200,
+        100
+      ],
+      "flash_color": [
+        200,
+        255,
+        200
+      ],
+      "speed": 0.12,
+      "strike_size": 18
+    },
+    "dash_fire": {
+      "type": "dash",
+      "color": [
+        255,
+        100,
+        30
+      ],
+      "trail_color": [
+        255,
+        200,
+        50
+      ],
+      "speed": 0.1,
+      "trail_length": 8
+    },
+    "dash_backstab": {
+      "type": "dash",
+      "color": [
+        255,
+        150,
+        100
+      ],
+      "trail_color": [
+        255,
+        220,
+        180
+      ],
+      "speed": 0.12,
+      "trail_length": 6
+    },
+    "counter_fire": {
+      "type": "counter",
+      "color": [
+        255,
+        100,
+        30
+      ],
+      "flash_color": [
+        255,
+        255,
+        200
+      ],
+      "speed": 0.08
+    },
+    "aura_grow": {
+      "type": "aura",
+      "color": [
+        80,
+        200,
+        80
+      ],
+      "ring_color": [
+        150,
+        255,
+        150
+      ],
+      "radius": 40,
+      "expand_speed": 0.05
+    },
+    "glitch_pulse": {
+      "type": "glitch",
+      "color": [
+        180,
+        100,
+        220
+      ],
+      "glitch_color": [
+        100,
+        255,
+        200
+      ],
+      "pulse_size": 40,
+      "glitch_intensity": 0.3
+    },
+    "glitch_wave": {
+      "type": "glitch",
+      "color": [
+        150,
+        80,
+        200
+      ],
+      "glitch_color": [
+        80,
+        255,
+        180
+      ],
+      "pulse_size": 60,
+      "glitch_intensity": 0.5
+    },
+    "glitch_aura": {
+      "type": "glitch",
+      "color": [
+        180,
+        120,
+        220
+      ],
+      "glitch_color": [
+        120,
+        255,
+        200
+      ],
+      "pulse_size": 50,
+      "glitch_intensity": 0.4
+    },
+    "glitch_field": {
+      "type": "glitch",
+      "color": [
+        200,
+        100,
+        255
+      ],
+      "glitch_color": [
+        50,
+        255,
+        150
+      ],
+      "pulse_size": 70,
+      "glitch_intensity": 0.6
+    },
+    "trap_null": {
+      "type": "trap",
+      "color": [
+        180,
+        100,
+        220
+      ],
+      "grid_color": [
+        100,
+        255,
+        200
+      ],
+      "trap_size": 50
+    },
+    "trap_shock": {
+      "type": "trap",
+      "color": [
+        200,
+        120,
+        255
+      ],
+      "grid_color": [
+        80,
+        255,
+        180
+      ],
+      "trap_size": 55
+    }
+  }
+}

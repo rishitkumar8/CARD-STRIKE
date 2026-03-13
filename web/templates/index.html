@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Card Strike Launcher</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>⚔️ Card Strike</h1>
+    <p>Elemental Strategy Game with Greedy AI</p>
+
+    <div class="buttons">
+        <a href="/start" class="btn start">▶ Start Game</a>
+        <a href="/restart" class="btn restart">🔄 Restart</a>
+        <a href="/stop" class="btn stop">⛔ Stop Game</a>
+    </div>
+
+    <div class="info">
+        <h3>Game Controls</h3>
+        <ul>
+            <li>Click to place and select cards</li>
+            <li>Move units strategically</li>
+            <li>Attack using Q/W/E, A/S/D, Z/X/C</li>
+            <li>CPU uses greedy decision making</li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>
