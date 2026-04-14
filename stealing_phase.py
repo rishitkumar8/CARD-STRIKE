@@ -66,6 +66,7 @@ class StealingPhase:
     def __init__(self, screen):
         self.screen = screen
         self.frame = 0
+        self.cpu_turn_due_at = None
 
         # Fonts
         self.font_small  = pygame.font.Font(None, 16 if IS_WEB else 18)
@@ -109,6 +110,14 @@ class StealingPhase:
         self.action_message = "Your turn: Click YOUR card to RETAIN or OPPONENT's card to STEAL"
         self.cpu_rects = []
         self.player_rects = []
+        self.cpu_turn_due_at = None
+
+    def update(self):
+        if self.current_turn == "cpu" and not self.phase_complete and self.cpu_turn_due_at is not None:
+            now = pygame.time.get_ticks()
+            if now >= self.cpu_turn_due_at:
+                self.cpu_turn_due_at = None
+                self.cpu_turn()
 
     def get_card_data(self, idx):
         return CARD_POOL[idx]
@@ -429,7 +438,9 @@ class StealingPhase:
         if not self.phase_complete:
             self.current_turn = "cpu" if self.current_turn == "player" else "player"
             if self.current_turn == "cpu":
-                pygame.time.set_timer(pygame.USEREVENT + 1, 1000)
+                self.cpu_turn_due_at = pygame.time.get_ticks() + 700
+            else:
+                self.cpu_turn_due_at = None
 
     def _card_score(self, card_idx):
         return evaluate_card(CARD_POOL[card_idx])

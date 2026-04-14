@@ -153,6 +153,8 @@ async def main() -> None:
             viewport, scale = compute_viewport(screen.get_size())
 
             if stealing_phase_active:
+                stealing_phase.update()
+
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         running = False
@@ -167,14 +169,15 @@ async def main() -> None:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         stealing_phase.handle_click(screen_to_world(event.pos, viewport, scale))
 
-                    if event.type == pygame.USEREVENT + 1:
-                        pygame.time.set_timer(pygame.USEREVENT + 1, 0)
-                        stealing_phase.cpu_turn()
-
                     if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and stealing_phase.phase_complete:
                         player_final_cards, cpu_final_cards = stealing_phase.get_final_decks()
                         stealing_phase_active = False
                         placing_phase = True
+
+                if IS_WEB and stealing_phase.phase_complete:
+                    player_final_cards, cpu_final_cards = stealing_phase.get_final_decks()
+                    stealing_phase_active = False
+                    placing_phase = True
 
                 game_surface.fill((12, 12, 16))
                 stealing_phase.screen = game_surface
@@ -296,6 +299,32 @@ async def main() -> None:
                                     selected_pos = None
                                     anim_mgr.add_particle(*cell_center(c, r), "air")
                                     cpu_pending = True
+                                elif clicked and clicked.owner == "enemy" and IS_WEB:
+                                    target_positions = []
+                                    for col in range(grid.cols):
+                                        for row in range(grid.rows):
+                                            target_card = grid.tiles[col][row].card
+                                            if target_card and target_card.owner == "enemy":
+                                                target_positions.append((col, row))
+
+                                    clicked_enemy_index = next(
+                                        (
+                                            idx
+                                            for idx, (ec, er) in enumerate(target_positions)
+                                            if (ec, er) == (c, r)
+                                        ),
+                                        -1,
+                                    )
+                                    if clicked_enemy_index >= 0:
+                                        attack_triggered = False
+                                        for attack_idx in range(len(mover.attacks)):
+                                            if initiate_player_attack(mover.index, attack_idx, clicked_enemy_index, grid):
+                                                selected_pos = None
+                                                cpu_pending = True
+                                                attack_triggered = True
+                                                break
+                                        if not attack_triggered:
+                                            anim_mgr.add_floating_text("No attack in range!", *cell_center(c, r), (255, 180, 90))
                                 elif not clicked:
                                     anim_mgr.add_floating_text("OUT OF RANGE!", *cell_center(c, r), (255, 100, 100))
                                     selected_pos = None
