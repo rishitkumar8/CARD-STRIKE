@@ -20,6 +20,29 @@ from stealing_phase import StealingPhase
 from ui_draw import draw_help_overlay, draw_ui, spawn_confetti, update_and_draw_confetti
 
 
+def get_window_size() -> tuple[int, int]:
+    display_info = pygame.display.Info()
+    max_width = max(960, min(WIDTH, display_info.current_w or WIDTH))
+    max_height = max(720, min(HEIGHT, display_info.current_h or HEIGHT))
+    return max_width, max_height
+
+
+def compute_viewport(window_size: tuple[int, int]) -> tuple[pygame.Rect, float]:
+    win_w, win_h = window_size
+    scale = min(win_w / WIDTH, win_h / HEIGHT)
+    scaled_w = max(1, int(WIDTH * scale))
+    scaled_h = max(1, int(HEIGHT * scale))
+    offset_x = (win_w - scaled_w) // 2
+    offset_y = (win_h - scaled_h) // 2
+    return pygame.Rect(offset_x, offset_y, scaled_w, scaled_h), scale
+
+
+def screen_to_world(pos: tuple[int, int], viewport: pygame.Rect, scale: float) -> tuple[int, int]:
+    x = (pos[0] - viewport.x) / scale
+    y = (pos[1] - viewport.y) / scale
+    return int(max(0, min(WIDTH - 1, x))), int(max(0, min(HEIGHT - 1, y)))
+
+
 def configure_logging() -> None:
     logger = logging.getLogger()
     if logger.handlers:
@@ -103,7 +126,9 @@ async def main() -> None:
 
     pygame.init()
     pygame.display.set_caption("Card Strike: Elemental GUI")
-    screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
+    window_size = get_window_size()
+    screen = pygame.display.set_mode(window_size, pygame.RESIZABLE)
+    game_surface = pygame.Surface((WIDTH, HEIGHT))
     clock = pygame.time.Clock()
 
     grid = Grid(GRID_COLS, GRID_ROWS)
@@ -125,20 +150,22 @@ async def main() -> None:
     while running:
         try:
             clock.tick(FPS)
+            viewport, scale = compute_viewport(screen.get_size())
 
             if stealing_phase_active:
-                stealing_phase.draw()
-                pygame.display.flip()
-
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         running = False
 
+                    if event.type == pygame.VIDEORESIZE:
+                        screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+                        viewport, scale = compute_viewport(screen.get_size())
+
                     if event.type == pygame.MOUSEMOTION:
-                        stealing_phase.handle_mouse_move(pygame.mouse.get_pos())
+                        stealing_phase.handle_mouse_move(screen_to_world(event.pos, viewport, scale))
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
-                        stealing_phase.handle_click(pygame.mouse.get_pos())
+                        stealing_phase.handle_click(screen_to_world(event.pos, viewport, scale))
 
                     if event.type == pygame.USEREVENT + 1:
                         pygame.time.set_timer(pygame.USEREVENT + 1, 0)
@@ -149,6 +176,13 @@ async def main() -> None:
                         stealing_phase_active = False
                         placing_phase = True
 
+                game_surface.fill((12, 12, 16))
+                stealing_phase.screen = game_surface
+                stealing_phase.draw()
+                screen.fill((8, 8, 10))
+                scaled_surface = pygame.transform.smoothscale(game_surface, viewport.size)
+                screen.blit(scaled_surface, viewport.topleft)
+                pygame.display.flip()
                 await asyncio.sleep(0)
                 continue
 
@@ -169,12 +203,16 @@ async def main() -> None:
                 process_turn_start_statuses(grid, "player")
                 game_state = check_win_lose(grid)
 
-            mx, my = pygame.mouse.get_pos()
+            mx, my = screen_to_world(pygame.mouse.get_pos(), viewport, scale)
             hovered_cell = (mx // TILE_SIZE, my // TILE_SIZE)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+
+                if event.type == pygame.VIDEORESIZE:
+                    screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+                    viewport, scale = compute_viewport(screen.get_size())
 
                 if event.type == pygame.KEYDOWN and placing_phase:
                     if event.key == pygame.K_1:
@@ -190,6 +228,8 @@ async def main() -> None:
                     show_help = not show_help
 
                 if event.type == pygame.MOUSEBUTTONDOWN and not anim_mgr.blocking:
+                    mx, my = screen_to_world(event.pos, viewport, scale)
+                    hovered_cell = (mx // TILE_SIZE, my // TILE_SIZE)
                     c, r = hovered_cell
                     if not grid.in_bounds(c, r):
                         continue
@@ -291,15 +331,16 @@ async def main() -> None:
                         elif target_idx == -1:
                             anim_mgr.add_floating_text("Hold 1/2/3!", mx, my, (255, 255, 0))
 
-            draw_ui(screen, grid, selected_pos, hovered_cell, placing_phase, selected_player_element)
+            game_surface.fill((8, 8, 10))
+            draw_ui(game_surface, grid, selected_pos, hovered_cell, placing_phase, selected_player_element)
 
             if show_help and game_state == "playing":
-                draw_help_overlay(screen)
+                draw_help_overlay(game_surface)
 
             if game_state != "playing":
                 overlay = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
                 overlay.fill((0, 0, 0, 200))
-                screen.blit(overlay, (0, 0))
+                game_surface.blit(overlay, (0, 0))
 
                 finish_frame = getattr(pygame, "_finish_frame", 0) + 1
                 pygame._finish_frame = finish_frame
@@ -319,15 +360,15 @@ async def main() -> None:
                         ax = random.randint(0, WIDTH)
                         ay = random.randint(0, HEIGHT)
                         ash_a = random.randint(20, 60)
-                        pygame.draw.circle(screen, (*C_TEXT_DIM, ash_a), (ax, ay), random.randint(1, 3))
+                        pygame.draw.circle(game_surface, (*C_TEXT_DIM, ash_a), (ax, ay), random.randint(1, 3))
 
                 icon_surf = FONT_HERO.render(icon_text, True, title_color)
-                screen.blit(icon_surf, (WIDTH // 2 - icon_surf.get_width() // 2, HEIGHT // 2 - 180))
+                game_surface.blit(icon_surf, (WIDTH // 2 - icon_surf.get_width() // 2, HEIGHT // 2 - 180))
 
                 shadow = FONT_HERO.render(title_text, True, C_SHADOW)
-                screen.blit(shadow, (WIDTH // 2 - shadow.get_width() // 2 + 4, HEIGHT // 2 - 90 + 4))
+                game_surface.blit(shadow, (WIDTH // 2 - shadow.get_width() // 2 + 4, HEIGHT // 2 - 90 + 4))
                 txt_surf = FONT_HERO.render(title_text, True, title_color)
-                screen.blit(txt_surf, (WIDTH // 2 - txt_surf.get_width() // 2, HEIGHT // 2 - 90))
+                game_surface.blit(txt_surf, (WIDTH // 2 - txt_surf.get_width() // 2, HEIGHT // 2 - 90))
 
                 panel_w, panel_h = 400, 120
                 px = WIDTH // 2 - panel_w // 2
@@ -340,22 +381,23 @@ async def main() -> None:
                 e_alive = sum(1 for col in grid.tiles for tile in col if tile.card and tile.card.owner == "enemy")
                 stat1 = FONT_MAIN.render(f"Your Units Alive: {p_alive}", True, C_PLAYER_GLOW)
                 stat2 = FONT_MAIN.render(f"Enemy Units Alive: {e_alive}", True, C_ENEMY_GLOW)
-                screen.blit(stat1, (px + 24, py + 24))
-                screen.blit(stat2, (px + 24, py + 60))
+                game_surface.blit(stat1, (px + 24, py + 24))
+                game_surface.blit(stat2, (px + 24, py + 60))
 
                 btn_w, btn_h = 280, 56
                 btn_x = WIDTH // 2 - btn_w // 2
                 btn_y = HEIGHT // 2 + 170
                 btn_rect = pygame.Rect(btn_x, btn_y, btn_w, btn_h)
-                btn_hov = btn_rect.collidepoint(pygame.mouse.get_pos())
+                btn_hov = btn_rect.collidepoint((mx, my))
                 btn_color = C_ACCENT_GLOW if btn_hov else C_ACCENT
-                pygame.draw.rect(screen, btn_color, btn_rect, border_radius=RADIUS_MD)
-                pygame.draw.rect(screen, C_GOLD if btn_hov else C_ACCENT_DARK, btn_rect, 3, border_radius=RADIUS_MD)
+                pygame.draw.rect(game_surface, btn_color, btn_rect, border_radius=RADIUS_MD)
+                pygame.draw.rect(game_surface, C_GOLD if btn_hov else C_ACCENT_DARK, btn_rect, 3, border_radius=RADIUS_MD)
                 btn_text = FONT_BIG.render("PLAY AGAIN", True, C_TEXT)
-                screen.blit(btn_text, (btn_x + (btn_w - btn_text.get_width()) // 2, btn_y + 12))
+                game_surface.blit(btn_text, (btn_x + (btn_w - btn_text.get_width()) // 2, btn_y + 12))
 
                 for ev in pygame.event.get(pygame.MOUSEBUTTONDOWN):
-                    if btn_rect.collidepoint(ev.pos):
+                    world_pos = screen_to_world(ev.pos, viewport, scale)
+                    if btn_rect.collidepoint(world_pos):
                         grid = Grid(GRID_COLS, GRID_ROWS)
                         selected_pos = None
                         placing_phase = True
@@ -372,6 +414,9 @@ async def main() -> None:
 
                 anim_mgr.blocking = True
 
+            screen.fill((8, 8, 10))
+            scaled_surface = pygame.transform.smoothscale(game_surface, viewport.size)
+            screen.blit(scaled_surface, viewport.topleft)
             pygame.display.flip()
 
         except Exception as error:
