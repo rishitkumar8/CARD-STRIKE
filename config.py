@@ -1,19 +1,24 @@
-# Configuration constants - Optimized for 1080p (8px Grid System)
+import sys
+
+# Configuration constants - desktop first, reduced for browser builds
+IS_WEB = sys.platform == "emscripten"
+
 GRID_COLS = 23
 GRID_ROWS = 11
-TILE_SIZE = 64          # 8 × 8px grid units
-WIDTH = GRID_COLS * TILE_SIZE   # 1472px
-HEIGHT = GRID_ROWS * TILE_SIZE + 260  # +260 for bottom panel
+TILE_SIZE = 48 if IS_WEB else 64
+BOTTOM_PANEL_HEIGHT = 220 if IS_WEB else 260
+WIDTH = GRID_COLS * TILE_SIZE
+HEIGHT = GRID_ROWS * TILE_SIZE + BOTTOM_PANEL_HEIGHT
 FPS = 60
 
-# 8px Grid System
-GRID_UNIT = 8
-PADDING_SM = GRID_UNIT * 2    # 16px
-PADDING_MD = GRID_UNIT * 3    # 24px
-PADDING_LG = GRID_UNIT * 4    # 32px
-PADDING_XL = GRID_UNIT * 6    # 48px
+# 8px grid system
+GRID_UNIT = 8 if not IS_WEB else 6
+PADDING_SM = GRID_UNIT * 2
+PADDING_MD = GRID_UNIT * 3
+PADDING_LG = GRID_UNIT * 4
+PADDING_XL = GRID_UNIT * 6
 
-# Border Radius
+# Border radius
 RADIUS_SM = 8
 RADIUS_MD = 16
 RADIUS_LG = 24

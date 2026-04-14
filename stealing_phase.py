@@ -19,7 +19,7 @@ import random
 import os
 import json
 import math
-from config import WIDTH, HEIGHT, FPS, PADDING_SM, PADDING_MD, PADDING_LG, PADDING_XL, RADIUS_SM, RADIUS_MD, RADIUS_LG
+from config import WIDTH, HEIGHT, FPS, IS_WEB, PADDING_SM, PADDING_MD, PADDING_LG, PADDING_XL, RADIUS_SM, RADIUS_MD, RADIUS_LG
 from card import Card
 from attack import Attack
 from colors import *
@@ -56,10 +56,10 @@ ELEMENT_GLOW = {
 # ═══════════════════════════════════════
 # Card Dimensions (8px grid aligned)
 # ═══════════════════════════════════════
-CARD_WIDTH = 200       # 25 × 8
-CARD_HEIGHT = 264      # 33 × 8
-CARD_SPACING = 216     # 27 × 8
-CARD_IMAGE_HEIGHT = 152  # 19 × 8
+CARD_WIDTH = 160 if IS_WEB else 200
+CARD_HEIGHT = 220 if IS_WEB else 264
+CARD_SPACING = 172 if IS_WEB else 216
+CARD_IMAGE_HEIGHT = 112 if IS_WEB else 152
 
 
 class StealingPhase:
@@ -68,11 +68,11 @@ class StealingPhase:
         self.frame = 0
 
         # Fonts
-        self.font_small  = pygame.font.Font(None, 18)
-        self.font_body   = pygame.font.Font(None, 22)
-        self.font_medium = pygame.font.Font(None, 24)
-        self.font_big    = pygame.font.Font(None, 34)
-        self.font_title  = pygame.font.Font(None, 56)
+        self.font_small  = pygame.font.Font(None, 16 if IS_WEB else 18)
+        self.font_body   = pygame.font.Font(None, 20 if IS_WEB else 22)
+        self.font_medium = pygame.font.Font(None, 22 if IS_WEB else 24)
+        self.font_big    = pygame.font.Font(None, 28 if IS_WEB else 34)
+        self.font_title  = pygame.font.Font(None, 42 if IS_WEB else 56)
 
         # Load card images
         self.card_images = {}
