@@ -22,6 +22,8 @@ from ui_draw import draw_help_overlay, draw_ui, spawn_confetti, update_and_draw_
 
 def get_window_size() -> tuple[int, int]:
     display_info = pygame.display.Info()
+    if IS_WEB:
+        return max(320, display_info.current_w or WIDTH), max(240, display_info.current_h or HEIGHT)
     max_width = max(960, min(WIDTH, display_info.current_w or WIDTH))
     max_height = max(720, min(HEIGHT, display_info.current_h or HEIGHT))
     return max_width, max_height
@@ -179,10 +181,10 @@ async def main() -> None:
                     stealing_phase_active = False
                     placing_phase = True
 
-                game_surface.fill((12, 12, 16))
+                game_surface.fill(C_BG_PRIMARY)
                 stealing_phase.screen = game_surface
                 stealing_phase.draw()
-                screen.fill((8, 8, 10))
+                screen.fill(C_BG_GRADIENT_B)
                 scaled_surface = pygame.transform.smoothscale(game_surface, viewport.size)
                 screen.blit(scaled_surface, viewport.topleft)
                 pygame.display.flip()
@@ -360,7 +362,7 @@ async def main() -> None:
                         elif target_idx == -1:
                             anim_mgr.add_floating_text("Hold 1/2/3!", mx, my, (255, 255, 0))
 
-            game_surface.fill((8, 8, 10))
+            game_surface.fill(C_BG_PRIMARY)
             draw_ui(game_surface, grid, selected_pos, hovered_cell, placing_phase, selected_player_element)
 
             if show_help and game_state == "playing":
@@ -443,7 +445,7 @@ async def main() -> None:
 
                 anim_mgr.blocking = True
 
-            screen.fill((8, 8, 10))
+            screen.fill(C_BG_GRADIENT_B)
             scaled_surface = pygame.transform.smoothscale(game_surface, viewport.size)
             screen.blit(scaled_surface, viewport.topleft)
             pygame.display.flip()

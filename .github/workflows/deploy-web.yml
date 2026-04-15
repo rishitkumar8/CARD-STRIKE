@@ -34,7 +34,10 @@ jobs:
         run: pip install -r requirements-web.txt
 
       - name: Build browser version with pygbag
-        run: python -m pygbag --build --app_name CARD-STRIKE --title "Card Strike" .
+        run: python -m pygbag --build --app_name MARV-STRIKE --title "MARV Strike" .
+
+      - name: Apply MARV Strike web shell
+        run: python tools/customize_web_build.py
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
