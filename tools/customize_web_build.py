@@ -94,6 +94,11 @@ CUSTOM_STYLE = """
             display: grid;
             place-items: center;
             pointer-events: none;
+            transition: opacity 220ms ease;
+        }
+
+        #transfer.hidden {
+            display: none !important;
         }
 
         .loader-shell {
@@ -132,6 +137,14 @@ CUSTOM_STYLE = """
         .loader-status {
             display: grid;
             gap: 14px;
+        }
+
+        #status {
+            padding: 10px 14px;
+            border-radius: 14px;
+            background: rgba(140, 195, 210, 0.14);
+            border: 1px solid rgba(140, 195, 210, 0.18);
+            color: #eef4ff;
         }
 
         .loader-tip {
@@ -175,6 +188,11 @@ def main() -> None:
     html = html.replace('platform.document.body.style.background = "#7f7f7f"', 'platform.document.body.style.background = "#161a2a"')
     html = html.replace('prompt = fnt.render("Ready to start !", True, "blue")', 'prompt = fnt.render("Click anywhere to start MARV Strike", True, "white")')
     html = html.replace('prompt = fnt.render(f"Setting [{pkg}] up", True, "black")', 'prompt = fnt.render(f"Preparing {pkg}", True, "white")')
+    html = html.replace('platform.window.transfer.hidden = true', 'platform.window.transfer.classList.add("hidden")')
+    html = html.replace(
+        '        console.log(__FILE__, "custom_postrun")\n',
+        '        console.log(__FILE__, "custom_postrun")\n        transfer.classList.add("hidden")\n',
+    )
 
     html = re.sub(r"<style>.*?</style>", f"<style>{CUSTOM_STYLE}\n    </style>", html, count=1, flags=re.S)
     html = re.sub(r'<div id="transfer".*?</div>\s*</div>', CUSTOM_TRANSFER, html, count=1, flags=re.S)

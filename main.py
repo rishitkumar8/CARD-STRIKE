@@ -29,19 +29,26 @@ def get_window_size() -> tuple[int, int]:
     return max_width, max_height
 
 
-def compute_viewport(window_size: tuple[int, int]) -> tuple[pygame.Rect, float]:
+def compute_viewport(window_size: tuple[int, int]) -> tuple[pygame.Rect, tuple[float, float]]:
     win_w, win_h = window_size
+    if IS_WEB:
+        return pygame.Rect(0, 0, max(1, win_w), max(1, win_h)), (
+            max(win_w / WIDTH, 0.0001),
+            max(win_h / HEIGHT, 0.0001),
+        )
+
     scale = min(win_w / WIDTH, win_h / HEIGHT)
     scaled_w = max(1, int(WIDTH * scale))
     scaled_h = max(1, int(HEIGHT * scale))
     offset_x = (win_w - scaled_w) // 2
     offset_y = (win_h - scaled_h) // 2
-    return pygame.Rect(offset_x, offset_y, scaled_w, scaled_h), scale
+    return pygame.Rect(offset_x, offset_y, scaled_w, scaled_h), (scale, scale)
 
 
-def screen_to_world(pos: tuple[int, int], viewport: pygame.Rect, scale: float) -> tuple[int, int]:
-    x = (pos[0] - viewport.x) / scale
-    y = (pos[1] - viewport.y) / scale
+def screen_to_world(pos: tuple[int, int], viewport: pygame.Rect, scale: tuple[float, float]) -> tuple[int, int]:
+    scale_x, scale_y = scale
+    x = (pos[0] - viewport.x) / scale_x
+    y = (pos[1] - viewport.y) / scale_y
     return int(max(0, min(WIDTH - 1, x))), int(max(0, min(HEIGHT - 1, y)))
 
 
