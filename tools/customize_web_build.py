@@ -185,17 +185,21 @@ def main() -> None:
     html = html.replace("Loading Card Strike from marve-strike.apk", "Loading MARV Strike from marve-strike.apk")
     html = html.replace('Title   : Card Strike', 'Title   : MARV Strike')
     html = html.replace('<title>Card Strike</title>', '<title>MARV Strike</title>')
+    html = html.replace('WIDTH=1024  # 1280', 'WIDTH=1600  # widened for browser layout')
+    html = html.replace('HEIGHT=600  # 720', 'HEIGHT=900  # taller browser layout')
+    html = html.replace('REFX = 1980', 'REFX = 1600')
+    html = html.replace('REFY = 1080', 'REFY = 900')
     html = html.replace('platform.document.body.style.background = "#7f7f7f"', 'platform.document.body.style.background = "#161a2a"')
     html = html.replace('prompt = fnt.render("Ready to start !", True, "blue")', 'prompt = fnt.render("", True, "white")')
     html = html.replace('prompt = fnt.render(f"Setting [{pkg}] up", True, "black")', 'prompt = fnt.render("", True, "white")')
     html = html.replace('platform.window.transfer.hidden = true', 'platform.window.transfer.classList.add("hidden")')
     html = html.replace(
         '        console.log(__FILE__, "custom_postrun")\n',
-        '        console.log(__FILE__, "custom_postrun")\n        transfer.classList.add("hidden")\n',
+        '        console.log(__FILE__, "custom_postrun")\n        document.getElementById("transfer").classList.add("hidden")\n',
     )
     html = html.replace(
         '        console.log(__FILE__, "custom_onload")\n',
-        '        console.log(__FILE__, "custom_onload")\n        status.textContent = "Loading battlefield..."\n        loader_tip.textContent = "Ready to start! Please click/touch page"\n',
+        '        console.log(__FILE__, "custom_onload")\n        document.getElementById("status").textContent = "Loading battlefield..."\n        document.getElementById("loader-tip").textContent = "Ready to start! Please click/touch page"\n',
     )
 
     html = re.sub(r"<style>.*?</style>", f"<style>{CUSTOM_STYLE}\n    </style>", html, count=1, flags=re.S)
