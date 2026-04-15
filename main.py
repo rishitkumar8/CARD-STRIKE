@@ -21,9 +21,18 @@ from ui_draw import draw_help_overlay, draw_ui, spawn_confetti, update_and_draw_
 
 
 def get_window_size() -> tuple[int, int]:
-    display_info = pygame.display.Info()
     if IS_WEB:
-        return max(320, display_info.current_w or WIDTH), max(240, display_info.current_h or HEIGHT)
+        try:
+            import platform as web_platform
+
+            browser_w = int(getattr(web_platform.window, "innerWidth", WIDTH))
+            browser_h = int(getattr(web_platform.window, "innerHeight", HEIGHT))
+            return max(320, browser_w), max(240, browser_h)
+        except Exception:
+            display_info = pygame.display.Info()
+            return max(320, display_info.current_w or WIDTH), max(240, display_info.current_h or HEIGHT)
+
+    display_info = pygame.display.Info()
     max_width = max(960, min(WIDTH, display_info.current_w or WIDTH))
     max_height = max(720, min(HEIGHT, display_info.current_h or HEIGHT))
     return max_width, max_height

@@ -173,7 +173,7 @@ CUSTOM_TRANSFER = """
                     <progress value="0" max="100" id="progress"></progress>
                 </div>
             </div>
-            <div class="loader-tip">When prompted, click anywhere to enter the arena.</div>
+            <div class="loader-tip" id="loader-tip">Ready to start! Please click/touch page</div>
         </div>
     </div>
 """
@@ -186,12 +186,16 @@ def main() -> None:
     html = html.replace('Title   : Card Strike', 'Title   : MARV Strike')
     html = html.replace('<title>Card Strike</title>', '<title>MARV Strike</title>')
     html = html.replace('platform.document.body.style.background = "#7f7f7f"', 'platform.document.body.style.background = "#161a2a"')
-    html = html.replace('prompt = fnt.render("Ready to start !", True, "blue")', 'prompt = fnt.render("Click anywhere to start MARV Strike", True, "white")')
-    html = html.replace('prompt = fnt.render(f"Setting [{pkg}] up", True, "black")', 'prompt = fnt.render(f"Preparing {pkg}", True, "white")')
+    html = html.replace('prompt = fnt.render("Ready to start !", True, "blue")', 'prompt = fnt.render("", True, "white")')
+    html = html.replace('prompt = fnt.render(f"Setting [{pkg}] up", True, "black")', 'prompt = fnt.render("", True, "white")')
     html = html.replace('platform.window.transfer.hidden = true', 'platform.window.transfer.classList.add("hidden")')
     html = html.replace(
         '        console.log(__FILE__, "custom_postrun")\n',
         '        console.log(__FILE__, "custom_postrun")\n        transfer.classList.add("hidden")\n',
+    )
+    html = html.replace(
+        '        console.log(__FILE__, "custom_onload")\n',
+        '        console.log(__FILE__, "custom_onload")\n        status.textContent = "Loading battlefield..."\n        loader_tip.textContent = "Ready to start! Please click/touch page"\n',
     )
 
     html = re.sub(r"<style>.*?</style>", f"<style>{CUSTOM_STYLE}\n    </style>", html, count=1, flags=re.S)
